@@ -5,7 +5,7 @@ using WebApp.UI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 //Service Registers
-
+builder.Services.AddControllersWithViews();
 //Connection String
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -13,6 +13,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseStaticFiles();
+
+app.UseRouting();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{Controller=Home}/{action=Index}/{id?}");
 
 app.Run();
