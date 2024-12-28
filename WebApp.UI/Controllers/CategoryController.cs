@@ -32,12 +32,53 @@ namespace WebApp.UI.Controllers
         [HttpPost]
         public IActionResult Create(Category model)
         {
-            _context.Categories.Add(model);
-            _context.SaveChanges();
+            try
+            {
+                _context.Categories.Add(model);
+                _context.SaveChanges();
 
-           return RedirectToAction("Index", "Category");
+                TempData["Success"] = "Saved Successfully";
+                return RedirectToAction("Index", "Category");
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                TempData["ErrorMsg"]=msg;
+                return View();
+            }
         }
 
         //List, Create, Edit, Delete
+
+        [HttpGet]
+        public IActionResult Edit(int CategoryId)
+        {
+            Category? category = _context.Categories.FirstOrDefault(x => x.CategoryId == CategoryId);
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category model)
+        {
+            _context.Categories.Update(model);
+            _context.SaveChanges();
+            TempData["Success"] = "Updated Successfully";
+            return RedirectToAction("Index", "Category");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int CategoryId)
+        {
+            //Find object
+            Category? category = _context.Categories.Find(CategoryId);
+
+            //Delete
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+
+            //Redirect
+            //return RedirectToAction("Index", "Category");
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
