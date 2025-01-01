@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.UI.Data;
 
@@ -11,9 +12,11 @@ using WebApp.UI.Data;
 namespace WebApp.UI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228173726_columnchange")]
+    partial class columnchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,7 @@ namespace WebApp.UI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModuleUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentModuleId")
@@ -169,14 +173,8 @@ namespace WebApp.UI.Migrations
                     b.Property<bool>("EditAccess")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("PrintAccess")
-                        .HasColumnType("bit");
-
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UploadAccess")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("ViewAccess")
                         .HasColumnType("bit");

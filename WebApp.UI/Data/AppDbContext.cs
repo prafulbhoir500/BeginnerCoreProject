@@ -22,11 +22,16 @@ namespace WebApp.UI.Data
 
         }
 
-        
+
 
         //DbSet
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<AppModule> AppModules { get; set; }
+        public DbSet<AppModuleTemplate> AppModuleTemplates { get; set; }
+        public DbSet<RoleDetails> RoleDetails { get; set; }
 
     }
 }

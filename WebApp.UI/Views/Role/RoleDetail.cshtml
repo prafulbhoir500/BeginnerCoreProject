@@ -1,0 +1,85 @@
+﻿@using WebApp.UI.ViewModels.RoleViewModels
+@model CreateRoleDetailViewModel
+
+@{
+    ViewData["Title"] = "RoleDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>RoleDetail</h1>
+
+
+
+<form asp-action="RoleDetail" method="post">
+
+    <div class="mb-3">
+        <input type="hidden" asp-for="Role.RoleId" />
+        <label asp-for="Role.RoleName" class="form-label"></label>
+        <input asp-for="Role.RoleName" class="form-control" />
+        <span asp-validation-for="Role.RoleName" class="text-danger"></span>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>View Access</th>
+                <th>Edit Access</th>
+                <th>Approve Access</th>
+                <th>Upload Access</th>
+                <th>Delete Access</th>
+                <th>Print Access</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.moduleTemplate.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.moduleTemplate[i].AppModule.ModuleName
+                        <input type="hidden" name="moduleTemplate[@i].AppModuleId" value="@Model.moduleTemplate[i].AppModuleId" />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].ViewAccess" value="true" @(Model.moduleTemplate[i].ViewAccess ? "" : "disabled") />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].EditAccess" value="true" @(Model.moduleTemplate[i].EditAccess ? "" : "disabled") />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].ApproveAccess" value="true" @(Model.moduleTemplate[i].ApproveAccess ? "" : "disabled") />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].UploadAccess" value="true" @(Model.moduleTemplate[i].UploadAccess ? "" : "disabled") />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].DeleteAccess" value="true" @(Model.moduleTemplate[i].DeleteAccess ? "" : "disabled") />
+                    </td>
+                    <td>
+                        <input type="checkbox" name="moduleTemplate[@i].PrintAccess" value="true" @(Model.moduleTemplate[i].PrintAccess ? "" : "") />
+                    </td>
+                </tr>
+            }
+        </tbody>
+       @*  <tbody>
+            @foreach (var item in Model.moduleTemplate)
+            {
+                <tr>
+                    <td>
+                        @item.AppModule.ModuleName
+                        <input type="hidden" asp-for="@item.AppModuleId" />
+                    </td>
+                    <td><input type="checkbox" value="true" name="ViewAccess" @(item.ViewAccess == false ? "disabled" : "") /></td>
+                    <td><input type="checkbox" value="true" name="EditAccess" @(item.EditAccess == false ? "disabled" : "") /></td>
+                    <td><input type="checkbox" value="true" name="DeleteAccess" @(item.DeleteAccess == false ? "disabled" : "") /></td>
+                    <td><input type="checkbox" value="true" name="ApproveAccess" @(item.ApproveAccess == false ? "disabled" : "") /></td>
+                    <td><input type="checkbox" value="true" name="UploadAccess" @(item.UploadAccess == false ? "disabled" : "") /></td>
+                    <td><input type="checkbox" value="true" name="PrintAccess" @(item.PrintAccess == false ? "disabled" : "") /></td>
+
+                </tr>
+            }
+        </tbody> *@
+    </table>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+

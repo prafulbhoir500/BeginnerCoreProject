@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebApp.UI.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Upsert">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Upsert", new { roleId = item.RoleId }) |
+                    @Html.ActionLink("Details", "RoleDetail", new { roleId = item.RoleId }) |
+                    @Html.ActionLink("Delete", "Delete", new { roleId = item.RoleId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

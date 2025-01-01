@@ -1,0 +1,94 @@
+﻿@model WebApp.UI.ViewModels.AppModuleViewModels.AppModuleViewModel
+
+@{
+    ViewData["Title"] = (Model.AppModule?.AppModuleId??0) > 0 ? "Edit App Module" : "Create App Module";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Upsert">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <input type="hidden" asp-for="AppModule.AppModuleId" />
+                <label asp-for="AppModule.ModuleName" class="form-label"></label>
+                <input asp-for="AppModule.ModuleName" class="form-control" />
+                <span asp-validation-for="AppModule.ModuleName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AppModule.ModuleUrl" class="form-label"></label>
+                <input asp-for="AppModule.ModuleUrl" class="form-control" />
+                <span asp-validation-for="AppModule.ModuleUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AppModule.ParentModuleId" class="form-label"></label>
+                <select class="form-select" asp-for="AppModule.ParentModuleId" asp-items="@ViewBag.AppModuleList">
+                    <option selected disabled>-- Select --</option>
+                </select>
+                <span asp-validation-for="AppModule.ParentModuleId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AppModule.SortOrder" class="form-label"></label>
+                <input asp-for="AppModule.SortOrder" class="form-control" />
+                <span asp-validation-for="AppModule.SortOrder" class="text-danger"></span>
+            </div>
+            <div class="mb-3 d-flex gap-3 flex-wrap">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.ViewAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        View Access
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.EditAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Edit Access
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.DeleteAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Delete Access
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.ApproveAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Approve Access
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.UploadAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Upload Access
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="AppModuleTemplate.PrintAccess">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Print Access
+                    </label>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@((Model.AppModule?.AppModuleId??0) > 0 ?"Update":"Create")" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
